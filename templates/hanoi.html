@@ -1,0 +1,136 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    <div id="toBottom" class="row"><a href="#hanoiCont">Go to the animation</a></div>
+    <section class="textSection row p-4">
+      <div class="col-8">
+        <p class="text-md-left">The Tower of Hanoi is a mathematical game or puzzle. It consists of three rods and a number of disks of different sizes, which can slide onto any rod.<br>
+        The puzzle starts with the disks in a neat stack in ascending order of size on one rod, the smallest at the top, thus making a conical shape.<br>
+        The objective of the puzzle is to move the entire stack to another rod, obeying the following simple rules:<br>
+        </p>
+        <ol class="list-group">
+            <li class="list-group-item operationsList"><p><b>1:</b> Only one disk can be moved at a time.</p></li>
+            <li class="list-group-item operationsList"><p><b>2:</b> Each move consists of taking the upper disk from one of the stacks and placing it on top of another stack or on an empty rod.</p></li>
+            <li class="list-group-item operationsList"><p><b>3:</b> No larger disk may be placed on top of a smaller disk.</p></li>
+        </ol>
+
+      </div>
+      <figure class="col-4 figure">
+        <img class="figure-img img-fluid rounded" src="{{ url_for('static', filename='assets/Tower_of_Hanoi.jpeg') }}"alt="Tower of Hanoi">
+        <figcaption class="figure-caption">A model set of the Tower of Hanoi (with 8 disks). Source <a href="https://en.wikipedia.org/wiki/Tower_of_Hanoi">wikipedia</a>.</figcaption>
+      </figure>
+    </section>
+    <section id="code" class="row p-4">
+      <div class="col-6">
+        <p>
+          The following app presents an animation of a tower being solved using a recursing algorythm.<br>
+          Note that the ammount of steps needed, hence the time necessary to solve a tower double for each additionnal disk added to the tower.<br>
+        </p>
+        <p>In pseudo code the algorythm we are using goes as follow :</p>
+        <ul>
+          <li>n: The ammount of disks</li>
+          <li>S: The Starting location(or column)</li>
+          <li>E: The Ending location</li>
+          <li>H: The intermediate location(or Helper location)</li>
+        </ul>
+        <pre class="bg-secondary"><code class="text-light">
+        function hanoi(n, S, E, H)
+          if n not= 0
+            hanoi(n-1, S, H, A)
+            move disk from S to A
+            hanoi(n-1, H, A, D)
+          end-if
+        end-function
+        </code></pre>
+        <p>In these 3 steps with towers named A, B, C, moving the disk tower from A to C,</p>
+        <ul>
+          <li>We first move a tower of disks n-1</li>
+          <li>Move the bigger disk from A to C</li>
+          <li>Move what we left behind (tower n-1) from the helper B to C</li>
+        </ul>
+      </div>
+      <div class="col-6 text-center">
+        <p>With Javascript :</p>
+        <iframe height="500" style="width: 100%;" scrolling="no" title="oNgNoQa" src="https://codepen.io/Olivier42M/embed/oNgNoQa?height=265&theme-id=default&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
+        See the Pen <a href='https://codepen.io/Olivier42M/pen/oNgNoQa'>oNgNoQa</a> by Olivier
+        (<a href='https://codepen.io/Olivier42M'>@Olivier42M</a>) on <a href='https://codepen.io'>CodePen</a>.
+        </iframe>
+        <a href='https://codepen.io/Olivier42M/pen/oNgNoQa'>Try it here.</a>
+      </div>
+    </section>
+    <div id="hanoiCont" class="row mt-4">
+        <!-- Form disk select -->
+        <div id="options" class="col-8 row p-2">
+            <h2 class="col-12">Options: </h2>
+            <form id="formHanoi" class="col-6 p-2" novalidate>
+                    <div class="form-group">
+                        <select class="form-control" name="disksSelect" id="disksSelect" >
+                            <option value="" selected disabled>Choose an amount of disks.</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                        </select>
+                    </div>
+            </form>
+            <div class="col-4">
+                 <fieldset class="form-group p-2  border border-light">
+                    <div class="row">
+                      <legend class="col-form-label col-sm-2 pt-0">Speed</legend>
+                      <div class="col-sm-10">
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="gridRadios" id="fullSpeed" value="1" checked>
+                          <label class="form-check-label" for="fullSpeed">
+                            100%
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="gridRadios" id="oneAndHalfSpeed" value="0.75">
+                          <label class="form-check-label" for="oneAndHalfSpeed">
+                            150%
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="gridRadios" id="doubleSpeed" value="0.5">
+                          <label class="form-check-label" for="doubleSpeed">
+                            200%
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="gridRadios" id="noAnim" value="0">
+                          <label class="form-check-label" for="noAnim">
+                            No animation
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </fieldset>
+            </div>
+            <div class="col-12 row">
+                <div class="col text-center"><button type="button" id="start"  class="btn btnHanoi btn-light">Start</button></div>
+                <div class="col text-center"><button type="button" id="stop"  class="stop btnHanoi btn btn-light">Stop</button></div>
+                <div class="col text-center"><button type="button" id="reset"  class="btn btnHanoi btn-light">Reset</button></div>
+
+            </div>
+        </div>
+
+        <div id="towerCont" class="col-9">
+            <div id="disks">
+            </div>
+            <div id="columns">
+            </div>
+        </div>
+        <div id="upArrow"><i id="top" class="fas fa-arrow-up"></i></div>
+
+    </div>
+
+{% endblock %}

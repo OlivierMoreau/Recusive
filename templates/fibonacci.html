@@ -1,0 +1,94 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    <div id="toBottom" class="row"><a href="#fibCalcs">Go to the animation</a></div>
+    <section  class="textSection row mt-4 p-4">
+        <h2 class="col-12">The Fibonacci Sequence</h2>
+
+        <div class="col-8">
+            <p class="mb-2">In mathematics, the Fibonacci numbers, commonly denoted Fn form a sequence, called the Fibonacci sequence, such that each number is the sum of the two preceding ones, starting from 0 and 1.<br>
+            That is:</br>
+            <i><b>F</b></i><small>0</small> = 0, <i><b>F</b></i><small>1</small> = 1 <br>
+            and </br>
+            <i><b>F</b></i>n =  <i><b>F</b></i>n<small>-1</small> +  <i><b>F</b></i>n<small>-2</small> <br>
+            for n > 1. <br>
+
+            </p>
+            <p class="font-weight-bold">The Fibonacci sequence is traditionally used to explain tree recursion: <p>
+            <pre class="bg-secondary"><code class="text-light">
+    function fibonacci(n):
+        if n is 0 or 1:
+            return n
+        else
+            return fibonacci(n - 1) + fibonacci(n - 2)
+            </code></pre>
+            <p>While this algorythm works in theory and is a good illustration of recursion, it is extremely ineficient, not only because of recursion,
+            but because we invoke the fibonacci function twice, and the right branch of recursion (i.e. fibonacci(n-2)) recalculates all the Fibonacci numbers already calculated by the left branch (i.e. fibonacci(n-1)).
+            This will happen for each new branch of the tree created by calling the function again, growing the ammount of calculation needed exponentially.<br>
+            <br>
+            If we were to try to use this algorythm to find the 70th number of the sequence for exemple, it would take a very large ammount of time even for a very powerfull computer to return the answer.<br>
+            A simple solution to this problem is to use <a href="https://en.wikipedia.org/wiki/Memoization"> memoization</a> and to cache the numbers of sequence as they being calculated by our algorythm.<br>
+            <br>
+            <p class="font-weight-bold">Using python we get the following function :</p>
+            </p>
+            <pre class="bg-secondary"><code class="text-light">
+    cache = {}                                      # Initialize our cache as a dictionnary that will store keys and value for numbers of the sequence like: {... 5:5, 6:8, 7:13, 8:21, ...}.
+
+    def fibonacci(n):
+        if n in [0, 1]:
+            cache[n] = n
+            return n
+        if cache.get(n - 1) != None:                # If the 2 numbers of the sequence preceeding the one we are currently looking for are cached, return the result of their addition.
+            cache[n] = cache[n - 1] + cache[n - 2]
+            return cache[n - 1] + cache[n - 2]
+        else:                                       # If the 2 numbers of the sequence preceeding the one we are currently looking for are not yet cached, make function calls to calculate them.
+            return fibonacci(n - 1) + fibonacci(n - 2)
+            </code></pre>
+            <br>
+            <p class="">Using this algorythm bellow you can find a number of the Fibonacci sequence (very large numbers will require you do go "up" the sequence by smaller increments as to not raise a recursion error).<br>
+            As well as try a short animation giving a visual representation of how the sequence scales.
+        </div>
+        <div class="col-2 ml-auto">
+            <figure>
+                <img class="figure-img img-fluid rounded" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/34%2A21-FibonacciBlocks.png/300px-34%2A21-FibonacciBlocks.png"alt="Squares of size Fn">
+                <figcaption class="figure-caption">A tiling with squares whose side lengths are successive Fibonacci numbers: 1, 1, 2, 3, 5, 8, 13 and 21.. Source <a href="https://en.wikipedia.org/wiki/Fibonacci_number">wikipedia</a>.</figcaption>
+            </figure>
+
+            <figure class="mt-30">
+                <img class="figure-img img-fluid rounded" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/FibonacciSpiral.svg/220px-FibonacciSpiral.svg.png"alt="Golden ration spiral">
+                <figcaption class="figure-caption">The Fibonacci spiral: an approximation of the golden spiral created by drawing circular arcs connecting the opposite corners of squares in the Fibonacci tiling. Source <a href="https://en.wikipedia.org/wiki/Fibonacci_number">wikipedia</a>.</figcaption>
+            </figure>
+        </div>
+    </section>
+    <div id="fibCalcs" class="row">
+        <div id="contFibTextArea" class="row col-12 m-4">
+            <div class="col-2">
+                <form method="post" action="/fibonacci_calc">
+                    <div class="form-group">
+                        <label for="n">Chose the number of the fibonacci sequence you wish to see :</label>
+                        <input id="n" class="form-control" type="number" name="n" required>
+                    </div>
+                    <button id="fibSubmit" class="btn btn-primary" type="submit">Select</button>
+                </form>
+            </div>
+            <textarea class="col-9 ml-auto" id="numDisplay">{{ fib }}</textarea>
+        </div>
+        <div class="col-12 m-4">
+            <canvas class="border b border-dark" id="myCanvas" width="2000" height="1000"></canvas></br>
+        </div>
+        <form class="col-12 m-4" novalidate>
+            <div class="form-group">
+                <label for="n">Chose the number of squares size <i><b>F</b></i>n:</label>
+                <input id="nCan" class="form-control col-2" type="number" name="nCan" min="1" max="14">
+            </div>
+            <button id="btnCanva" class="btn btn-primary col-2" type="button">Start animation</button>
+        </form>
+    </div>
+
+    <div id="upArrow"><i id="top" class="fas fa-arrow-up"></i></div>
+
+
+
+
+
+{% endblock %}

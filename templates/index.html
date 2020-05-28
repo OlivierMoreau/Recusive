@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+<section id="index" class="row">
+        <p class="m-4">This app presents famous exemples of recursive algorythms using animations to illustrate their end result.<br>
+        <br>
+        In computer science recursion is a method of solving problems where the solution depends on solutions of smaller instances of the same problem.<br>
+        This is often done using a function wich calls itself back within it's own code, passing a different parameter until a treshold is reached,
+        at wich point all the functions get executed, starting for the ones the were called last as they are on top of the stack.<br>
+        <br>
+        There are many possible application for recursion, but a common one is to parse tree like structures.
+        For exemple to explore completly such a structure: <br>
+        - The function is called with the whole tree passed as it's parameter<br>
+        - For every branches found it calls itself with it as parameter<br>
+        - This happens again for every sub branches and so on<br>
+        - If the function reaches the end of a branch it stops its execution (otherwise it would keep calling itself for ever)<br>
+        - At each step the function returns the element/node/leaf etc it is currently in<br>
+        <br>
+        With this method we don't need to know the structure of the tree orow large or deep it is, we will see all of it starting from its ends/leaves and working back up to its root.<br>
+        <br>
+        While recursion makes some problems that would be very hard to solve iteratively very simple, it also tends to be less efficient and you run the risk of running out of memory stacking too many function calls for larger problems.<br>
+        And while in theory any problem that can be solved using recursion could also be solved using iteration instead and vice versa, choosing between one or the other is in the end a matter of finding a balance between what's is the most efficient ressource wise, or the easiest to implement.<br>
+
+        I hope this short presentation, and the exemples you'll find here will, if it was not already the case, help you get familiar with recursion by seeing all the smaller "steps" being executed through animation to reach the desired result.
+        </p>
+</section>
+
+{% endblock %}
