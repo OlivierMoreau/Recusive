@@ -22,15 +22,9 @@ While the algorythms are fairly simple, the hard part for me was really the anim
 ## Roadmap
 
 I also planned a 3rd presentation/animation showing how to find the determinant of large matrixes, but while again the algorythm in itself is fairly straight forward,
-finding how to animate it in a way i'm satified with proved much harder than anticipated. But i still intend on trying to do it at a latter date.
-
-I also plan to translate it in french once i find a tool to do so without manually finding every dom element with a block of text to be replaced at the press of a button.
-Retrospectively, I should have probably planned for this from the start.
+finding how to animate it in a way i'm satified with proved much harder than anticipated. But i still intent on trying to do it at a later date.
 
 ## Author
 
 Olivier Moreau oliviermoreau676@gmail.com
 
-## Uses/Contribution
-
-The project is completly open and if it so happens that anyone wishes to contribute, or to use it for educational purpose that's completely fine by me.
